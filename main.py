@@ -2,31 +2,33 @@ import multiprocessing
 from multiprocessing import Process
 from datetime import datetime
 
-def exponentiation(queue):
+def calculating(queue):
     while True:
         if queue.empty():
             continue
         number, pow = queue.get()
-        exponent = number ** pow
-        dateTime = datetime.now()
-        summanumbers = sum(range(exponent + 1))
+        result_pow = number ** pow
+        nowtime = datetime.now()
+        sumnumbers = sum(range(result_pow + 1))
         with open("file.txt", "a", encoding='utf8') as file:
-            file.write(str(dateTime) + " >> " + str(number) + " ^ " + str(pow) + " = " + str(exponent) + ": Сумма числа от нуля до полученного результата возведения в степени = " + str(summanumbers) + "\n")
+            file.write(str(nowtime) + " >> " + str(number) + " ^ " + str(pow) + " = " + str(result_pow) + ": Сумма числа от нуля до полученного результата возведения в степени = " + str(sumnumbers) + "\n")
 
 if __name__ == '__main__':
     queue = multiprocessing.Queue()
-    process = Process(target=exponentiation, args=(queue,))
+    process = Process(target=calculating, args=(queue,))
     process.start()
     while True:
         try:
-            str = input("Введите число и стпенеь через пробел: ")
-            if str == 'stop':
+            input_str = input("Введите число и стпенень через пробел: ")
+            if input_str == 'bye':
                 break
-            number, pow = (str.split(' '))
-            numbercel: int = int(number)
-            powcel: int = int(pow)
-            datatuple = [numbercel, powcel]
-            queue.put(datatuple)
-            
+            print(6)
+            num_input, pow_input = (input_str.split(' '))
+            print(76)
+            num: int = int(num_input)
+            pow: int = int(pow_input)
+            print(90)
+            numtuple : tuple = (num, pow)
+            queue.put(numtuple)
         except:
-            print("Возникла ошибка при вводе данных")
+            print("Неправильно введены данные")

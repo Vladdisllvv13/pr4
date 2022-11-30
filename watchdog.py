@@ -3,10 +3,11 @@ from watchdog.events import FileSystemEventHandler
 
 class Observation(FileSystemEventHandler):
     def on_modified(self, event):
+           print("jo")
            with open("file.txt", "r", encoding='utf8') as file:
-                print(file.readlines()[-1])
+                print(file.readlines()[-1].rstrip('\n'))
 observer = Observer()
-observer.schedule(Observation(), path="\\.files")
+observer.schedule(Observation(), path="\\.pr4")
 observer.start()
 try:
     while 1:
